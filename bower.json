@@ -1,0 +1,25 @@
+{
+  "name": "Homepage Mockups",
+  "authors": [
+    "Tobias Cabrera Cano <tobias.cabrera@gmx.de>"
+  ],
+  "description": "Template to make Homepage Mockups",
+  "main": "index.html",
+  "keywords": [
+    "mockups",
+    "materialize"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "fontawesome#^4.7.0",
+    "materialize": "^0.97.8"
+  }
+}

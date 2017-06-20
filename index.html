@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TRAFFIC JAM</title>
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+<!-- page content -->
+<nav>
+    <div class="nav-wrapper indigo darken-3" >
+        <a href="#" class="brand-logo">TRAFFIC LIGHTS</a>
+    </div>
+</nav>
+<div class="playfield">
+    <div class="row heading">
+        <div class="col s9 offset-s1">
+            <h3>Get the green wave!</h3>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col s2 offset-s2">
+                    <div class="btn btn-block playbutton red one"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red two"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red three"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red four"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 offset-s2">
+                    <div class="btn btn-block playbutton red five"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red six"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red seven"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red eight"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 offset-s2">
+                    <div class="btn btn-block playbutton red nine"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red ten"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red eleven"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red twelve"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 offset-s2">
+                    <div class="btn btn-block playbutton red thirteen"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red fourteen"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red fifteen"></div>
+                </div>
+                <div class="col s2">
+                    <div class="btn btn-block playbutton red sixteen"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s3 offset-s4">
+                    <div class="indigo counter z-depth-3"><h5>Circuits: 0</h5></div>
+                </div>
+                <div class="col s3 offset-s4">
+                    <div id="restart" class="indigo accent-2 z-depth-3"><h5>Start Again</h5></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var i = 1;
+    var isGameOver = false;
+    var stateColor_0 = "red";
+    var stateColor_1 = "amber";
+    var stateColor_2 = "green";
+
+    function changeColor(param) {
+        if($(param).hasClass(stateColor_0)) {
+            $(param).removeClass(stateColor_0).addClass(stateColor_1);
+        } else if ($(param).hasClass(stateColor_1)) {
+            $(param).removeClass(stateColor_1).addClass(stateColor_2);
+        } else {
+            $(param).removeClass(stateColor_1).removeClass(stateColor_2).addClass(stateColor_0);
+        }
+    }
+    function countUp() {
+        setCounter(i);
+        checkCounterColor();
+        i++;
+    }
+    function setCounter(param) {
+        $(".counter").html("<h5>Circuits: " + param + "</h5>");
+    }
+
+    function checkCounterColor() {
+        switch (i) {
+            case 20:
+                darkenCounter(1);
+                break;
+            case 40:
+                darkenCounter(2);
+                break;
+            case 60:
+                darkenCounter(3);
+                break;
+            case 80:
+                darkenCounter(4);
+                break;
+        }
+    }
+
+    function darkenCounter(level) {
+        $(".counter").removeClass("darken-1").removeClass("darken-2").removeClass("darken-3").removeClass("darken-4").addClass("darken-" + level)
+    }
+
+    function checkGameStatus() {
+        if($(".one").hasClass(stateColor_2) && $(".two").hasClass(stateColor_2) && $(".three").hasClass(stateColor_2) && $(".four").hasClass(stateColor_2)
+            && $(".five").hasClass(stateColor_2)	&& $(".six").hasClass(stateColor_2) && $(".seven").hasClass(stateColor_2) && $(".eight").hasClass(stateColor_2)
+            && $(".nine").hasClass(stateColor_2) && $(".ten").hasClass(stateColor_2) && $(".eleven").hasClass(stateColor_2) && $(".twelve").hasClass(stateColor_2)
+            && $(".thirteen").hasClass(stateColor_2) && $(".fourteen").hasClass(stateColor_2) && $(".fifteen").hasClass(stateColor_2) && $(".sixteen").hasClass(stateColor_2)) {
+            alert("You won!");
+            isGameOver = true;
+        }
+        if (i > 100) {
+            alert("You lost!");
+            isGameOver = true
+        }
+        return false;
+    }
+
+    $("#restart").click(function () {
+        $(".btn").removeClass(stateColor_0).removeClass(stateColor_1).removeClass(stateColor_2).addClass(stateColor_0);
+        setCounter(0);
+        isGameOver = false;
+        i = 1;
+    });
+    $(".btn").click(function () {
+        if(isGameOver == false) {
+            if($(this).hasClass("one")) {
+                changeColor(".one");
+                changeColor(".four");
+                changeColor(".seven");
+                changeColor(".ten");
+            }
+            if($(this).hasClass("two")) {
+                changeColor(".two");
+                changeColor(".seven");
+                changeColor(".twelve");
+                changeColor(".fourteen");
+            }
+            if($(this).hasClass("three")) {
+                changeColor(".three");
+                changeColor(".eight");
+                changeColor(".thirteen");
+                changeColor(".two");
+            }
+            if($(this).hasClass("four")) {
+                changeColor(".four");
+                changeColor(".seven");
+                changeColor(".ten");
+                changeColor(".thirteen");
+            }
+            if($(this).hasClass("five")) {
+                changeColor(".five");
+                changeColor(".eight");
+                changeColor(".fourteen");
+                changeColor(".one");
+            }
+            if($(this).hasClass("six")) {
+                changeColor(".six");
+                changeColor(".eleven");
+                changeColor(".sixteen");
+                changeColor(".five");
+            }
+            if($(this).hasClass("seven")) {
+                changeColor(".seven");
+                changeColor(".ten");
+                changeColor(".thirteen");
+                changeColor(".sixteen");
+            }
+            if($(this).hasClass("eight")) {
+                changeColor(".eight");
+                changeColor(".nine");
+                changeColor(".sixteen");
+                changeColor(".four");
+            }
+            if($(this).hasClass("nine")) {
+                changeColor(".nine");
+                changeColor(".fourteen");
+                changeColor(".three");
+                changeColor(".eight");
+            }
+            if($(this).hasClass("nine")) {
+                changeColor(".nine");
+                changeColor(".fourteen");
+                changeColor(".three");
+                changeColor(".eight");
+            }
+            if($(this).hasClass("ten")) {
+                changeColor(".ten");
+                changeColor(".thirteen");
+                changeColor(".sixteen");
+                changeColor(".three");
+            }
+            if($(this).hasClass("eleven")) {
+                changeColor(".eleven");
+                changeColor(".fifteen");
+                changeColor(".three");
+                changeColor(".seven");
+            }
+            if($(this).hasClass("twelve")) {
+                changeColor(".twelve");
+                changeColor(".one");
+                changeColor(".six");
+                changeColor(".eleven");
+            }
+            if($(this).hasClass("thirteen")) {
+                changeColor(".thirteen");
+                changeColor(".sixteen");
+                changeColor(".three");
+                changeColor(".six");
+            }
+            if($(this).hasClass("fourteen")) {
+                changeColor(".fourteen");
+                changeColor(".two");
+                changeColor(".five");
+                changeColor(".nine");
+            }
+            if($(this).hasClass("fifteen")) {
+                changeColor(".fifteen");
+                changeColor(".four");
+                changeColor(".nine");
+                changeColor(".fourteen");
+            }
+            if($(this).hasClass("sixteen")) {
+                changeColor(".sixteen");
+                changeColor(".one");
+                changeColor(".six");
+                changeColor(".eleven");
+            }
+            countUp();
+            checkGameStatus();
+        }
+    });
+</script>

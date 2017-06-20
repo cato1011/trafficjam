@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TRAFFIC JAM</title>
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <!-- page content -->
+  <nav>
+    <div class="nav-wrapper indigo darken-3" >
+      <a href="#" class="brand-logo">TRAFFIC LIGHTS</a>
+    </div>
+  </nav>
+    <div class="playfield">
+		<div class="row heading">
+			<div class="col s9 offset-s1">
+				<h3>Get the green wave!</h3>
+			</div>
+		<div>
+        <div class="row">
+            <div class="col s2 offset-s3">
+                <div class="btn btn-block playbutton red one"></div>
+            </div>
+            <div class="col s2">
+                <div class="btn btn-block playbutton red two"></div>
+            </div>
+            <div class="col s2">
+                <div class="btn btn-block playbutton red three"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2 offset-s3">
+                <div class="btn btn-block playbutton red four"></div>
+            </div>
+            <div class="col s2">
+                <div class="btn btn-block playbutton red five"></div>
+            </div>
+            <div class="col s2">
+                <div class="btn btn-block playbutton red six"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2 offset-s3">
+                <div class="btn btn-block playbutton red seven"></div>
+            </div>
+            <div class="col s2">
+                <div class="btn btn-block playbutton red eight"></div>
+            </div>
+            <div class="col s2">
+                <div class="btn btn-block playbutton red nine"></div>
+            </div>
+        </div>
+		<div class="row">
+            <div class="col s3 offset-s4">
+                <div class="blue counter z-depth-3"><h5>Circuits: 0</h5></div>
+            </div>
+			<div class="col s3 offset-s4">
+                <div id="restart" class="green z-depth-3"><h5>Start Again</h5></div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
+<script>
+	var i = 1;
+	var isGameOver = false;
+	
+    function changeColor(param) {
+        if($(param).hasClass("red")) {
+            $(param).removeClass("red").addClass("orange");
+        } else if ($(param).hasClass("orange")) {
+            $(param).removeClass("orange").addClass("green");
+        } else {
+			$(param).removeClass("orange").removeClass("green").addClass("red");
+		}		
+    }
+	function countUp() {
+		setCounter(i);
+		i++;
+	}
+	function setCounter(param) {
+		$(".counter").html("<h5>Circuits: " + param + "</h5>");
+	}
+	function checkGameStatus() {
+		if($(".one").hasClass("green") && $(".two").hasClass("green") && $(".three").hasClass("green")
+			&& $(".four").hasClass("green")	&& $(".five").hasClass("green")	&& $(".six").hasClass("green")
+			&& $(".seven").hasClass("green") && $(".eight").hasClass("green") && $(".nine").hasClass("green")) {
+			alert("You won!");
+			isGameOver = true;
+		}
+		if (i > 100) {
+			alert("You lost!");
+			isGameOver = true
+		}
+		return false;
+	}
+	function setRedLight(param) {
+		$(param).removeClass("orange").removeClass("green").removeClass("red").addClass("red");
+	}
+	$("#restart").click(function () {
+		$(".btn").removeClass("orange").removeClass("green").removeClass("red").addClass("red");
+		setCounter(0);
+		isGameOver = false;
+		i = 1;
+	});
+    $(".btn").click(function () {
+		if(isGameOver == false) {
+			if($(this).hasClass("one")) {
+				changeColor(".one");
+				changeColor(".four");
+				changeColor(".seven");
+				changeColor(".nine");
+			}
+			if($(this).hasClass("two")) {
+				changeColor(".two");
+				changeColor(".five");
+				changeColor(".six");
+				changeColor(".eight");
+			}
+			if($(this).hasClass("three")) {
+				changeColor(".three");
+				changeColor(".five");
+				changeColor(".seven");
+				changeColor(".nine");
+			}
+			if($(this).hasClass("four")) {
+				changeColor(".one");
+				changeColor(".four");
+				changeColor(".six");
+				changeColor(".seven");
+			}
+			if($(this).hasClass("five")) {
+				changeColor(".three");
+				changeColor(".five");
+				changeColor(".six");
+				changeColor(".eight");
+			}
+			if($(this).hasClass("six")) {
+				changeColor(".six");
+				changeColor(".five");
+				changeColor(".seven");
+				changeColor(".eight");
+			}
+			if($(this).hasClass("seven")) {
+				changeColor(".two");
+				changeColor(".four");
+				changeColor(".seven");
+				changeColor(".nine");
+			}
+			if($(this).hasClass("eight")) {
+				changeColor(".two");
+				changeColor(".three");
+				changeColor(".five");
+				changeColor(".eight");
+			}
+			if($(this).hasClass("nine")) {
+				changeColor(".one");
+				changeColor(".five");
+				changeColor(".six");
+				changeColor(".nine");
+			}
+			countUp();
+			checkGameStatus();
+		}
+    });
+</script>

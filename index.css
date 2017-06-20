@@ -1,0 +1,29 @@
+.playfield {
+    margin: 5%;
+}
+
+.playbutton {
+    width: 100px;
+    height: 100px;
+	border-radius: 50px 50px 50px 50px;
+}
+
+.counter {
+	text-align: center;
+	color: white;
+	border-radius: 20px 20px 20px 20px;
+}
+
+.heading {
+	text-align: center;
+}
+
+h5 {
+	padding: 1%;
+}
+
+#restart {
+	color: white;
+	text-align: center;
+	border-radius: 20px 20px 20px 20px;
+}
